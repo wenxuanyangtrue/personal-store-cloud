@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.xsword.system_service.mapper.FileMapper">
+
+    <select id="selectByDirId" resultType="top.xsword.model.entity.File">
+        SELECT *
+        FROM file
+        <where>
+            <choose>
+                <when test="dirId != null and dirId != ''">
+                    and dir_id = #{dirId}
+                </when>
+                <otherwise>
+                    and dir_id in (select id from dir where user_id = #{userId})
+                </otherwise>
+            </choose>
+            and deleted = 0
+        </where>
+    </select>
+
+    <select id="selectByUserIdLike" resultType="top.xsword.model.entity.File">
+        SELECT *
+        FROM file
+        <where>
+            (dir_id in(
+                SELECT id FROM dir WHERE user_id = #{userId})
+            )
+            and filename like CONCAT('%',#{fileQuery.filename},'%')
+            and deleted = 0
+        </where>
+    </select>
+
+    <select id="selectOneByDirId" resultType="top.xsword.model.entity.File">
+        select * from file
+        <where>
+            id = #{fileId}
+            and(
+            dir_id in(select id from dir where user_id = #{userId})
+            or dir_id is null
+            )
+            and deleted = 0
+        </where>
+    </select>
+</mapper>

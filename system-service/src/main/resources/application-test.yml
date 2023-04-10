@@ -1,0 +1,57 @@
+server:
+  port: 8881
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #指定日志的实现类
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: true
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/personal-store-cloud?characterEncoding=utf-8
+    username: root
+    password: 201029
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss #指定json的日期格式化
+    time-zone: GMT+8 #指定格式化时区
+  redis:
+    database: 0
+    host:
+    port: 6379
+    password:
+    timeout: 10000 #超时时间
+    jedis:
+      pool:
+        max-active: 8 #最大连接数
+        max-wait: -1 #最大等待时间，负数表示没有限制
+        max-idle: 8 #最大空闲连接数
+        min-idle: 0 #最小空闲连接数
+  servlet:
+    multipart:
+      max-file-size: 5368709120
+      max-request-size: 5368709120
+system:
+  protocol: http
+  domain: 127.0.0.1
+  port: 8881
+  oss:
+    region-id:
+    access-key:
+    access-key-secret:
+    bucket: personal-store-cloud
+    bucket-domain:
+    endpoint:
+    max-size: 5000
+    callbackUrl:
+  sts:
+    region-id:
+    roleArn:
+  email:
+    host-name: smtp.qq.com #QQ邮箱服务器
+    username:
+    password:
+    port: 465
+    encoding: UTF-8
+    ssl-connect: true
+  upload:
+    location: D:/MyStorageSpace/upload/
